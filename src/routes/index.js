@@ -10,6 +10,8 @@ import LikesScreen from "../views/LikesScreen";
 import PerfilScreen from "../views/PerfilScreen";
 import ProductoScreen from "../views/ProductoScreen";
 import CarritoScreen from "../views/CarritoScreen";
+import ListItemAdminScreen from "../views/Admin/ListItemsAdminScreen";
+import FormularioAdminScreen from "../views/Admin/FormularioAdminScreen";
 import { Ionicons } from '@expo/vector-icons';
 
 const Stack = createNativeStackNavigator();
@@ -66,6 +68,8 @@ const Routes = () => {
                     <Stack.Screen name="Registro" component={RegistroScreen} />
                     <Stack.Screen name="Producto" component={ProductoScreen} />
                     <Stack.Screen name="Carrito" component={CarritoScreen}/>
+                    <Stack.Screen name="ListItemAdmin" component={ListItemAdminScreen}/>
+                    <Stack.Screen name="Formulario" component={FormularioAdminScreen}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </>
