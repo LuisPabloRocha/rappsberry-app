@@ -17,6 +17,15 @@ const LoginScreen = () => {
         navigation.navigate("Registro");
     }
 
+    const handleLogin = () => {
+        if (email === 'admin@strappberry.com' && password === 'strappberry') {
+            navigation.navigate("ListItemAdmin");
+        } else {
+       
+            //navigation.navigate("UserDashboard");
+        }
+    }
+
     return (
         <ScrollView style={styles.container}
         contentContainerStyle={{ flexGrow: 1 }}>
@@ -39,6 +48,7 @@ const LoginScreen = () => {
                         placeholder="Contraseña"
                     />
                     <Button style={styles.button}
+                        onPress={handleLogin}
                         buttonStyle={{
                             borderRadius: 10,
                             height: 50, width: 200,

@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Text, SafeAreaView, StyleSheet, View, Image, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const ItemComponent = () => {
+const ItemComponent = ({producto}) => {
 
     const navigation = useNavigation();
 
     const handleToProducto = () => {
-        navigation.navigate("Producto");
+        navigation.navigate("Producto", {productoId:producto.idProducto});
     }
 
     return (
         <TouchableOpacity style={styles.item} onPress={handleToProducto}>
             <View style={styles.Card}>
-                <Image source={require('../../../assets/images/macbook.png')} style={styles.image}>
+                <Image source={{ uri: producto.imagen }} style={styles.image}>
                 </Image>
                 <View style={styles.containerInfo}>
-                    <Text style={styles.nameItem}>MacBook 13"</Text>
-                    <Text style={styles.priceItem}>$140</Text>
+                    <Text style={styles.nameItem}>{producto.nombre}</Text>
+                    <Text style={styles.priceItem}>$ {producto.precio}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -27,7 +27,7 @@ const ItemComponent = () => {
 const styles = StyleSheet.create({
     item: {
         width: '50%',
-        height: 190,
+        height: 200,
         padding:5
     },
     Card: {
@@ -47,13 +47,14 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '80%',
-        height: '50%',
-        marginTop: 2
+        height: '60%',
+        marginTop: 2,
+        borderRadius:10
     },
     containerInfo:{
         backgroundColor:'white',
         borderRadius:10,
-        marginTop:15
+        marginTop:5
     },
     nameItem: {
         fontSize:15,

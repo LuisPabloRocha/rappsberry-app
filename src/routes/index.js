@@ -70,6 +70,7 @@ const Routes = () => {
                     <Stack.Screen name="Carrito" component={CarritoScreen}/>
                     <Stack.Screen name="ListItemAdmin" component={ListItemAdminScreen}/>
                     <Stack.Screen name="Formulario" component={FormularioAdminScreen}/>
+                    <Stack.Screen name="FormularioEdit" component={FormularioAdminScreen}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </>

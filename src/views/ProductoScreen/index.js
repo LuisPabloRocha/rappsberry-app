@@ -2,32 +2,60 @@ import React, { useEffect, useState } from "react";
 import { Text, SafeAreaView, StyleSheet, View, Image, ScrollView, TextInput, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from '@rneui/themed';
+import { useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProductoScreen = () => {
-
-    const [email, onChangeEmail] = useState('');
-    const [password, onChangePassword] = useState('');
-
     const navigation = useNavigation();
+    const route = useRoute();
+    const { productoId } = route.params;
+    const [producto, setProducto] = useState(null);
 
     const windowHeight = Dimensions.get('window').height;
     const dataContainerHeight = windowHeight - 600;
 
-    const handleLoginToRegistro = () => {
-        navigation.navigate("Registro");
-    }
+    useEffect(() => {
+        const fetchProducto = async () => {
+            try {
+                const productosGuardados = await AsyncStorage.getItem('productos');
+                if (productosGuardados) {
+                    const productos = JSON.parse(productosGuardados);
+                    const productoEncontrado = productos.find(item => item.idProducto === productoId);
+                    if (productoEncontrado) {
+                        console.log("Producto encontrado")
+                        setProducto(productoEncontrado);
+                    } else {
+                        console.log("No se encontró el producto con el ID proporcionado");
+                    }
+                } else {
+                    console.log("No hay productos guardados en AsyncStorage");
+                }
+            } catch (error) {
+                console.error('Error al cargar el producto desde AsyncStorage:', error);
+            }
+        };
+        fetchProducto();
+    }, [productoId]);
 
+    if (!producto) {
+        return (
+            <View style={styles.loadingContainer}>
+                <Text>Cargando...</Text>
+            </View>
+        );
+    }
+    
     return (
         <ScrollView style={styles.container}
             contentContainerStyle={{ flexGrow: 1 }}>
             <View style={styles.imageContainer}>
-                <Image source={require('../../../assets/images/macbook.png')} style={styles.imageProducto}></Image>
+            <Image source={{ uri: producto.imagen }} style={styles.imageProducto}></Image>
             </View>
             <View style={[styles.infoContainer, { height: dataContainerHeight }]}>
                 <View>
-                    <Text style={styles.nameItem}>MacBook 13"</Text>
-                    <Text style={styles.priceItem}>$140</Text>
-                    <Text style={styles.descriptionItem}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae ligula sed nisi ornare imperdiet. Nullam in ullamcorper neque. Quisque sit amet mauris nec velit gravida consequat. Duis vehicula erat ac magna tincidunt, ac varius enim vestibulum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</Text>
+                    <Text style={styles.nameItem}>{producto.nombre}</Text>
+                    <Text style={styles.priceItem}>${producto.precio}</Text>
+                    <Text style={styles.descriptionItem}>{producto.descripcion}</Text>
                     <Button style={styles.button}
                         buttonStyle={{
                             borderRadius: 10,

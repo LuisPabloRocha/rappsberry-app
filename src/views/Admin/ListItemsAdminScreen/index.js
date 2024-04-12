@@ -1,14 +1,49 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Text, SafeAreaView, StyleSheet, View, Image, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import HeaderComponent from "../../../components/HeaderComponent";
 import ItemAdminComponent from "../../../components/Admin/ItemAdminComponent";
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ListItemAdminScreen = () => {
+    const [productos, setProductos] = useState([]);
     const navigation = useNavigation();
 
+    const handleClearStorage = async () => {
+        try {
+            await AsyncStorage.clear();
+            setProductos([]);
+        } catch (error) {
+            console.error('Error al borrar el almacenamiento:', error);
+        }
+    };
+
+    const cargarProductosGuardados = async () => {
+        try {
+            const productosGuardados = await AsyncStorage.getItem('productos');
+            if (productosGuardados) {
+                setProductos(JSON.parse(productosGuardados));
+            }
+        } catch (error) {
+            console.error('Error al cargar los productos guardados:', error);
+        }
+    };
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            cargarProductosGuardados(); // Cargar productos cuando el enfoque de la pantalla cambie
+        });
+        return unsubscribe;
+    }, [navigation]);
+
+    const handleProductoDelete = async (id) => {
+        await cargarProductosGuardados();
+    };
+
+
     const handleToFormulario = () => {
+        //handleClearStorage();
         navigation.navigate("Formulario");
     }
     return (
@@ -16,8 +51,9 @@ const ListItemAdminScreen = () => {
             <HeaderComponent />
             <ScrollView style={styles.containerItems}>
                 <View style={styles.itemsContainer}>
-                    <ItemAdminComponent></ItemAdminComponent>
-                    <ItemAdminComponent></ItemAdminComponent>
+                   {productos.map((producto, index) => (
+                    <ItemAdminComponent key={index} producto={producto}  onDelete={() => handleProductoDelete(producto.id)}/>
+                ))}
                 </View>
             </ScrollView>
             <TouchableOpacity onPress={handleToFormulario} style={styles.buttonContainer}>
