@@ -26,7 +26,7 @@ const FormularioAdminScreen = () => {
         { label: 'Moda', value: 'moda' },
         { label: 'Juguetes y ocio', value: 'ocio' },
         { label: 'Hogar y deco', value: 'hogar' },
-        { label: 'Alimenos y bebidad', value: 'alimentos' },
+        { label: 'Alimenos y bebidas', value: 'alimentos' },
         { label: 'Limpieza', value: 'limpieza' }
     ]);
 

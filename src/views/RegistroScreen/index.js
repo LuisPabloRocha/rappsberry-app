@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Text, SafeAreaView, StyleSheet, View, Image, ScrollView, TextInput, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from '@rneui/themed';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import FlashMessage, { showMessage } from "react-native-flash-message";
 
 const RegistroScreen = () => {
     const [nombre, onChangeNombre] = useState('');
@@ -11,7 +13,55 @@ const RegistroScreen = () => {
     const navigation = useNavigation();
 
     const windowHeight = Dimensions.get('window').height;
-    const dataContainerHeight = windowHeight - 200; 
+    const dataContainerHeight = windowHeight - 200;
+
+    const handleRegistro = async () => {
+        if (!nombre || !email || !password || !passwordConfirm) {
+            showMessage({
+                message: "Todos los campos son obligatorios",
+                type: "danger",
+            });
+            return;
+        }
+        if (password !== passwordConfirm) {
+            showMessage({
+                message: "Las contraseñas no coinciden",
+                type: "danger",
+            });
+            return;
+        }
+
+        const newUser = {
+            nombre,
+            email,
+            password,
+        };
+
+        try {
+            // Obtener los usuarios existentes
+            const usuariosGuardados = await AsyncStorage.getItem('usuarios');
+            let usuarios = [];
+
+            if (usuariosGuardados) {
+                usuarios = JSON.parse(usuariosGuardados);
+            }
+
+            // Agregar el nuevo usuario
+            usuarios.push(newUser);
+
+            // Guardar el arreglo actualizado en AsyncStorage
+            await AsyncStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+            showMessage({
+                message: "Registrado exitosamente",
+                type: "success",
+            });
+
+            navigation.navigate("Login");
+        } catch (error) {
+            console.error('Error al almacenar el usuario:', error);
+        }
+    }
 
     const handleRegistroToLogin = () => {
         navigation.navigate("Login");
@@ -19,13 +69,13 @@ const RegistroScreen = () => {
 
     return (
         <ScrollView style={styles.container}
-        contentContainerStyle={{ flexGrow: 1 }}>
+            contentContainerStyle={{ flexGrow: 1 }}>
             <View style={styles.headerContainer}>
                 <Image source={require('../../../assets/images/strappberry.png')} style={styles.logo}></Image>
             </View>
             <View style={[styles.dataContainer, { height: dataContainerHeight }]}>
                 <View>
-                <TextInput
+                    <TextInput
                         style={styles.input}
                         onChangeText={onChangeNombre}
                         value={nombre}
@@ -44,33 +94,35 @@ const RegistroScreen = () => {
                         secureTextEntry={true}
                         placeholder="Contraseña"
                     />
-                     <TextInput
+                    <TextInput
                         style={styles.input}
                         onChangeText={onChangePasswordConfirm}
                         value={passwordConfirm}
                         secureTextEntry={true}
                         placeholder="Confirmar contraseña"
                     />
-                    <Button style={styles.button}
+                    <Button
+                        onPress={handleRegistro}
+                        style={styles.button}
                         buttonStyle={{
                             borderRadius: 10,
                             height: 50, width: 200,
                             backgroundColor: "#353C59",
                         }}
                     >
-                        <Text style={styles.buttonText}>Ingresar
+                        <Text style={styles.buttonText}>Registarse
                         </Text>
                     </Button>
 
                 </View>
-                <View style={{height:100}}></View>
+                <View style={{ height: 100 }}></View>
                 <Text
                     style={{ color: "#c9c9c9", textAlign: "center", }}>
                     ¿Ya tienes cuenta?
                 </Text>
                 <TouchableOpacity onPress={handleRegistroToLogin} ><Text style={styles.textLink}>Inicia sesión</Text></TouchableOpacity>
                 <Text
-                    style={{ color: "#c9c9c9", textAlign: "center", marginTop:20 }}>
+                    style={{ color: "#c9c9c9", textAlign: "center", marginTop: 20 }}>
                     Luis Pablo Rocha | luispablo2098@hotmail.com
                 </Text>
             </View>
@@ -80,10 +132,11 @@ const RegistroScreen = () => {
 
 export default RegistroScreen;
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'white'
+        backgroundColor: 'white'
     },
     headerContainer: {
         paddingLeft: 12,

@@ -5,16 +5,39 @@ import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@rneui/themed';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ListItemsComponent from "../../components/ListItemsComponent";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TopTab = createMaterialTopTabNavigator();
 
 const HomeScreen = () => {
     const navigation = useNavigation();
+    const [categoria, setCategoria] = useState('todos');
+    const [usuario, setUsuario] = useState(null);
+
+    useEffect(() => {
+        cargarUsuario();
+    }, []);
+
+    const cargarUsuario = async () => {
+        try {
+            const usuarioGuardado = await AsyncStorage.getItem('usuario');
+            if (usuarioGuardado) {
+                const usuarioParseado = JSON.parse(usuarioGuardado);
+                setUsuario(usuarioParseado);
+            }
+        } catch (error) {
+            console.error('Error al cargar el usuario:', error);
+        }
+    };
+
+    const handleCategoryPress = (categoriaSeleccionada) => {
+        setCategoria(categoriaSeleccionada);
+    };
 
     const handlegoToCart = () => {
         navigation.navigate('Carrito');
     };
-    
+
     return (
         <SafeAreaView>
             <View>
@@ -26,34 +49,72 @@ const HomeScreen = () => {
                 <View style={styles.container}>
                     <Text style={styles.greetingText}>
                         <Text styles={styles.nameUser}>
-                            Hola Luis
+                        Hola {usuario ? usuario.nombre : ''}
                         </Text>
                     </Text>
                     <Text style={styles.subtitle}>¿Vamos a comprar algo?</Text>
                 </View>
             </View>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 20, paddingLeft: 15 }}>
-                <Button style={styles.buttonCategory}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 20, paddingLeft: 15, height: 55 }}>
+                <Button
+                    onPress={() => handleCategoryPress('todos')}
+                    style={styles.buttonCategory}
                     buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
                 >
-                    <Text style={styles.textBtn}>Electronicos
+                    <Text style={styles.textBtn}>Todo
                     </Text>
                 </Button>
-                <Button style={styles.buttonCategory}
+                <Button
+                    onPress={() => handleCategoryPress('electronica')}
+                    style={styles.buttonCategory}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                >
+                    <Text style={styles.textBtn}>Electrónica
+                    </Text>
+                </Button>
+                <Button
+                    onPress={() => handleCategoryPress('moda')}
+                    style={styles.buttonCategory}
                     buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
 
                 >
-                    <Text style={styles.textBtn}>Ropa
+                    <Text style={styles.textBtn}>Moda
                     </Text>
                 </Button>
-                <Button style={styles.buttonCategory}
+                <Button
+                    onPress={() => handleCategoryPress('ocio')}
+                    style={styles.buttonCategory}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                >
+                    <Text style={styles.textBtn}>Juguetes
+                    </Text>
+                </Button>
+                <Button
+                    onPress={() => handleCategoryPress('hogar')}
+                    style={styles.buttonCategory}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                >
+                    <Text style={styles.textBtn}>Hogar
+                    </Text>
+                </Button>
+                <Button
+                    onPress={() => handleCategoryPress('alimentos')}
+                    style={styles.buttonCategory}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                >
+                    <Text style={styles.textBtn}>Alimentos
+                    </Text>
+                </Button>
+                <Button
+                    onPress={() => handleCategoryPress('limpieza')}
+                    style={styles.buttonCategory}
                     buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
                 >
                     <Text style={styles.textBtn}>Limpieza
                     </Text>
                 </Button>
             </ScrollView>
-            <ListItemsComponent></ListItemsComponent>
+            <ListItemsComponent categoria={categoria}></ListItemsComponent>
         </SafeAreaView>
 
     )

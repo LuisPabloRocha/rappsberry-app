@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Text, SafeAreaView, StyleSheet, View, Image, ScrollView, TextInput, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from '@rneui/themed';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import FlashMessage, { showMessage } from "react-native-flash-message";
 
 const LoginScreen = () => {
 
@@ -11,24 +13,51 @@ const LoginScreen = () => {
     const navigation = useNavigation();
 
     const windowHeight = Dimensions.get('window').height;
-    const dataContainerHeight = windowHeight - 300; 
+    const dataContainerHeight = windowHeight - 300;
 
     const handleLoginToRegistro = () => {
         navigation.navigate("Registro");
     }
 
-    const handleLogin = () => {
-        if (email === 'admin@strappberry.com' && password === 'strappberry') {
-            navigation.navigate("ListItemAdmin");
-        } else {
-       
-            //navigation.navigate("UserDashboard");
+    const handleLogin = async () => {
+        try {
+            const usuariosGuardados = await AsyncStorage.getItem('usuarios');
+            if (usuariosGuardados !== null) {
+                const usuarios = JSON.parse(usuariosGuardados);
+
+                if (email === 'admin@strappberry.com' && password === 'admin') {
+                    navigation.navigate("ListItemAdmin");
+                } else {
+                    const usuario = usuarios.find(user => user.email === email && user.password === password);
+                    if (usuario) {
+                        await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
+                        navigation.navigate("TabNavigator");
+                    } else {
+                        showMessage({
+                            message: "Credenciales incorrectas",
+                            type: "danger",
+                        });
+                    }
+                }
+            } else {
+                showMessage({
+                    message: "No se encontró ningún usuario registrado",
+                    type: "danger",
+                });
+            }
+        } catch (error) {
+            console.error('Error al intentar iniciar sesión:', error);
+            showMessage({
+                message: "Error al intentar inciar sesión",
+                type: "danger",
+            });
         }
     }
+    
 
     return (
         <ScrollView style={styles.container}
-        contentContainerStyle={{ flexGrow: 1 }}>
+            contentContainerStyle={{ flexGrow: 1 }}>
             <View style={styles.headerContainer}>
                 <Image source={require('../../../assets/images/strappberry.png')} style={styles.logo}></Image>
             </View>
@@ -60,27 +89,29 @@ const LoginScreen = () => {
                     </Button>
 
                 </View>
-                <View style={{height:160}}></View>
+                <View style={{ height: 160 }}></View>
                 <Text
                     style={{ color: "#c9c9c9", textAlign: "center", }}>
                     ¿Aún no tienes cuenta?
                 </Text>
                 <TouchableOpacity onPress={handleLoginToRegistro} ><Text style={styles.textLink}>Registrate</Text></TouchableOpacity>
                 <Text
-                    style={{ color: "#c9c9c9", textAlign: "center", marginTop:20 }}>
+                    style={{ color: "#c9c9c9", textAlign: "center", marginTop: 20 }}>
                     Luis Pablo Rocha | luispablo2098@hotmail.com
                 </Text>
             </View>
+            <FlashMessage position="top" />
         </ScrollView>
     )
 }
 
 export default LoginScreen;
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'white'
+        backgroundColor: 'white'
     },
     headerContainer: {
         paddingLeft: 12,
