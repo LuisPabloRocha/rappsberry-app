@@ -4,8 +4,10 @@ import { useNavigation } from "@react-navigation/native";
 import { Button } from '@rneui/themed';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import HeaderComponent from "../../components/HeaderComponent";
 
 const ProductoScreen = () => {
+    const [usuario, setUsuario] = useState(null);
     const navigation = useNavigation();
     const route = useRoute();
     const { productoId } = route.params;
@@ -13,6 +15,22 @@ const ProductoScreen = () => {
 
     const windowHeight = Dimensions.get('window').height;
     const dataContainerHeight = windowHeight - 600;
+
+    useEffect(() => {
+        cargarUsuario();
+    }, []);
+
+    const cargarUsuario = async () => {
+        try {
+            const usuarioGuardado = await AsyncStorage.getItem('usuario');
+            if (usuarioGuardado) {
+                const usuarioParseado = JSON.parse(usuarioGuardado);
+                setUsuario(usuarioParseado);
+            }
+        } catch (error) {
+            console.error('Error al cargar el usuario:', error);
+        }
+    };
 
     useEffect(() => {
         const fetchProducto = async () => {
@@ -37,39 +55,84 @@ const ProductoScreen = () => {
         fetchProducto();
     }, [productoId]);
 
-    if (!producto) {
-        return (
-            <View style={styles.loadingContainer}>
-                <Text>Cargando...</Text>
-            </View>
-        );
-    }
+    const handleAddToCart = async () => {
+        try {
+            if (!usuario) {
+                console.error('Usuario no definido');
+                return;
+            }
     
-    return (
-        <ScrollView style={styles.container}
-            contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={styles.imageContainer}>
-            <Image source={{ uri: producto.imagen }} style={styles.imageProducto}></Image>
-            </View>
-            <View style={[styles.infoContainer, { height: dataContainerHeight }]}>
-                <View>
-                    <Text style={styles.nameItem}>{producto.nombre}</Text>
-                    <Text style={styles.priceItem}>${producto.precio}</Text>
-                    <Text style={styles.descriptionItem}>{producto.descripcion}</Text>
-                    <Button style={styles.button}
-                        buttonStyle={{
-                            borderRadius: 10,
-                            height: 50,
-                            backgroundColor: "#353C59",
-                        }}
-                    >
-                        <Text style={styles.buttonText}>Agregar al carrito
-                        </Text>
-                    </Button>
+            const productoParaAgregar = {
+                usuario: usuario,
+                producto: producto,
+                cantidad: 1
+            };
+    
+            const carritoActual = await AsyncStorage.getItem('carrito');
+            let carrito = [];
+    
+            if (carritoActual) {
+                carrito = JSON.parse(carritoActual);
+    
+                const carritoUsuarioActual = carrito.filter(item => item.usuario.email === usuario.email);
+    
+                const index = carritoUsuarioActual.findIndex(item => item.producto.idProducto === productoParaAgregar.producto.idProducto);
+                if (index !== -1) {
+                    carritoUsuarioActual[index].cantidad += 1;
+                    console.log("Aumentada la cantidad del producto en el carrito del usuario actual")
+                } else {
+                    carritoUsuarioActual.push(productoParaAgregar);
+                    console.log("Agregado nuevo producto al carrito del usuario actual")
+                }
+    
+                carrito = carrito.filter(item => item.usuario.email !== usuario.email).concat(carritoUsuarioActual);
+            } else {
+                carrito.push(productoParaAgregar);
+            }
+    
+            await AsyncStorage.setItem('carrito', JSON.stringify(carrito));
+    
+            navigation.navigate('Carrito');
+        } catch (error) {
+            console.error('Error al agregar al carrito:', error);
+        }
+    };
+    
 
-                </View>
-            </View>
-        </ScrollView>
+
+    return (
+        <SafeAreaView style={styles.container}
+            contentContainerStyle={{ flexGrow: 1 }}>
+            <HeaderComponent titulo="Producto" color="#e0e3f0"></HeaderComponent>
+            {producto &&
+                <>
+                    <View style={styles.imageContainer}>
+                        <Image source={{ uri: producto.imagen }} style={styles.imageProducto}></Image>
+                    </View>
+                    <View style={[styles.infoContainer, { height: dataContainerHeight }]}>
+                        <View>
+                            <Text style={styles.nameItem}>{producto.nombre}</Text>
+                            <Text style={styles.priceItem}>${producto.precio}</Text>
+                            <Text style={styles.descriptionItem}>{producto.descripcion}</Text>
+                            <Button
+                                onPress={handleAddToCart}
+                                style={styles.button}
+                                buttonStyle={{
+                                    borderRadius: 10,
+                                    height: 50,
+                                    backgroundColor: "#353C59",
+                                }}
+                            >
+                                <Text style={styles.buttonText}>Agregar al carrito
+                                </Text>
+                            </Button>
+
+                        </View>
+                    </View>
+                </>
+            }
+
+        </SafeAreaView>
     )
 }
 
@@ -78,7 +141,8 @@ export default ProductoScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+  
+        paddingTop:30
     },
     imageContainer: {
         backgroundColor: '#e0e3f0',
@@ -112,17 +176,17 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         fontWeight: 'bold'
     },
-    descriptionItem:{
+    descriptionItem: {
         fontSize: 15,
         padding: 10,
-        textAlign:'justify'
+        textAlign: 'justify'
     },
     button: {
         paddingTop: 20,
         paddingLeft: 12,
         paddingRight: 12,
         height: 70,
-        paddingBottom:30
+        paddingBottom: 30
     },
     buttonText: {
         color: "white",

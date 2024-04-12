@@ -35,7 +35,7 @@ const PerfilScreen = () => {
 
     return (
         <ScrollView>
-            <SafeAreaView>
+            <SafeAreaView style={{paddingTop:20}}>
                 <View style={styles.container}>
                     <Text style={styles.title}>Perfil de Usuario</Text>
                     {usuario && (

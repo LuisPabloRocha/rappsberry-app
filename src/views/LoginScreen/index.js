@@ -7,6 +7,12 @@ import FlashMessage, { showMessage } from "react-native-flash-message";
 
 const LoginScreen = () => {
 
+    const email1="laura@correo.com";
+    const pass1="laura123"
+    const email2="pablo@correo.com"
+    const pass2="pablo123"
+    const emailAdmin ="admin@strappberry.com"
+    const passAdmin="admin"
     const [email, onChangeEmail] = useState('');
     const [password, onChangePassword] = useState('');
 
@@ -21,23 +27,23 @@ const LoginScreen = () => {
 
     const handleLogin = async () => {
         try {
+            if (email === 'admin@strappberry.com' && password === 'admin') {
+                navigation.navigate("ListItemAdmin");
+                return;
+            }
+    
             const usuariosGuardados = await AsyncStorage.getItem('usuarios');
             if (usuariosGuardados !== null) {
                 const usuarios = JSON.parse(usuariosGuardados);
-
-                if (email === 'admin@strappberry.com' && password === 'admin') {
-                    navigation.navigate("ListItemAdmin");
+                const usuario = usuarios.find(user => user.email === email && user.password === password);
+                if (usuario) {
+                    await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
+                    navigation.navigate("TabNavigator");
                 } else {
-                    const usuario = usuarios.find(user => user.email === email && user.password === password);
-                    if (usuario) {
-                        await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
-                        navigation.navigate("TabNavigator");
-                    } else {
-                        showMessage({
-                            message: "Credenciales incorrectas",
-                            type: "danger",
-                        });
-                    }
+                    showMessage({
+                        message: "Credenciales incorrectas",
+                        type: "danger",
+                    });
                 }
             } else {
                 showMessage({
@@ -48,11 +54,12 @@ const LoginScreen = () => {
         } catch (error) {
             console.error('Error al intentar iniciar sesión:', error);
             showMessage({
-                message: "Error al intentar inciar sesión",
+                message: "Error al intentar iniciar sesión",
                 type: "danger",
             });
         }
     }
+    
     
 
     return (
@@ -76,17 +83,21 @@ const LoginScreen = () => {
                         secureTextEntry={true}
                         placeholder="Contraseña"
                     />
+                    <View style={{alignContent:'flex-end', alignSelf:'flex-end'}}>
                     <Button style={styles.button}
                         onPress={handleLogin}
                         buttonStyle={{
                             borderRadius: 10,
                             height: 50, width: 200,
                             backgroundColor: "#353C59",
+                            marginRight:12
                         }}
                     >
                         <Text style={styles.buttonText}>Ingresar
                         </Text>
                     </Button>
+                    </View>
+                    
 
                 </View>
                 <View style={{ height: 160 }}></View>
@@ -148,7 +159,7 @@ const styles = StyleSheet.create({
     button: {
         paddingTop: 10,
         paddingLeft: 12,
-        paddingRight: 12,
+     
         height: 70,
         alignSelf: 'flex-end'
     },

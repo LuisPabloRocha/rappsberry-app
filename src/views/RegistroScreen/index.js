@@ -101,6 +101,7 @@ const RegistroScreen = () => {
                         secureTextEntry={true}
                         placeholder="Confirmar contraseña"
                     />
+                      <View style={{alignContent:'flex-end', alignSelf:'flex-end'}}>
                     <Button
                         onPress={handleRegistro}
                         style={styles.button}
@@ -108,11 +109,14 @@ const RegistroScreen = () => {
                             borderRadius: 10,
                             height: 50, width: 200,
                             backgroundColor: "#353C59",
+                            marginRight:12
                         }}
                     >
                         <Text style={styles.buttonText}>Registarse
                         </Text>
                     </Button>
+                    </View>
+                    
 
                 </View>
                 <View style={{ height: 100 }}></View>
@@ -173,7 +177,7 @@ const styles = StyleSheet.create({
     button: {
         paddingTop: 10,
         paddingLeft: 12,
-        paddingRight: 12,
+   
         height: 70,
         alignSelf: 'flex-end'
     },

@@ -4,19 +4,19 @@ import { useNavigation } from "@react-navigation/native";
 import ItemComponent from "../ItemComponent";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ListItemsComponent = ({categoria}) => {
+const ListItemsComponent = ({ categoria }) => {
     const [productos, setProductos] = useState([]);
-    
+
     const cargarProductosGuardados = async () => {
         try {
             const productosGuardados = await AsyncStorage.getItem('productos');
             if (productosGuardados) {
                 const productosParseados = JSON.parse(productosGuardados);
-             
+
                 if (categoria === "todos") {
-                    setProductos(productosParseados); 
+                    setProductos(productosParseados);
                 } else {
-                  
+
                     const productosFiltrados = productosParseados.filter(producto => producto.categoria === categoria);
                     setProductos(productosFiltrados);
                 }
@@ -32,11 +32,17 @@ const ListItemsComponent = ({categoria}) => {
 
     return (
         <ScrollView >
-            <View style={styles.itemsContainer}>
-                {productos.map((producto, index) => (
-                    <ItemComponent key={index} producto={producto} idProd={index} />
-                ))}
-            </View>
+            {productos.length === 0 ? (
+                <View style={styles.emptyContainer}>
+                    <Text style={styles.emptyText}>No hay productos de esta categoría</Text>
+                </View>
+            ) : (
+                <View style={styles.itemsContainer}>
+                    {productos.map((producto, index) => (
+                        <ItemComponent key={index} producto={producto} idProd={index} />
+                    ))}
+                </View>
+            )}
         </ScrollView>
     )
 }
@@ -50,7 +56,18 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         flex: 1,
         padding: 15,
-        paddingBottom:200
+        paddingBottom: 200
+    },
+    emptyContainer: {
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        verticalAlign: 'middle',
+        marginTop: 100
+    },
+    emptyText: {
+        fontSize: 18,
+        fontWeight: 'bold',
     },
 
 })

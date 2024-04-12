@@ -5,9 +5,37 @@ import { useNavigation } from "@react-navigation/native";
 const LikesScreen = () => {
     return (
         <ScrollView>
-           <Text>HOME SCREEN</Text>
+          <View style={styles.emptyContainer}>
+                      <Text style={styles.emptyText}>Likes</Text>
+                      <Text style={styles.emptyText}>PROXIMAMENTE</Text>
+                  </View>
         </ScrollView>
     )
 }
 
 export default LikesScreen;
+
+const styles = StyleSheet.create({
+    itemsContainer: {
+        width: '100%',
+        marginTop: 20,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingVertical: 20,
+        flex: 1,
+        padding: 15,
+        paddingBottom: 200
+    },
+    emptyContainer: {
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        verticalAlign: 'middle',
+        marginTop: 100
+    },
+    emptyText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+
+})

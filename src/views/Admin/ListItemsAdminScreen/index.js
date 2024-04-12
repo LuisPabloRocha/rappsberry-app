@@ -74,7 +74,6 @@ const ListItemAdminScreen = () => {
     }
     return (
         <SafeAreaView style={styles.safeArea}>
-            <HeaderComponent />
             <View>
                 <View style={styles.container}>
                     <Text style={styles.greetingText}>
@@ -93,7 +92,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('todos')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Todo
                     </Text>
@@ -101,7 +100,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('electronica')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Electrónica
                     </Text>
@@ -109,7 +108,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('moda')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' , marginRight:10}}
 
                 >
                     <Text style={styles.textBtn}>Moda
@@ -118,7 +117,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('ocio')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' , marginRight:10}}
                 >
                     <Text style={styles.textBtn}>Juguetes
                     </Text>
@@ -126,7 +125,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('hogar')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Hogar
                     </Text>
@@ -134,7 +133,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('alimentos')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Alimentos
                     </Text>
@@ -142,7 +141,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('limpieza')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Limpieza
                     </Text>
@@ -174,7 +173,8 @@ const ListItemAdminScreen = () => {
 
 const styles = StyleSheet.create({
     safeArea: {
-        flex: 1
+        flex: 1,
+        paddingTop:30
     },
     container: {
         padding: 15,
@@ -188,7 +188,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     greetingText: {
-        fontSize: 22
+        fontSize: 22,
+        paddingRight:10
     },
     nameUser: {
         fontWeight: 'bold'
@@ -274,7 +275,7 @@ const styles = StyleSheet.create({
         alignSelf:'flex-end',
         justifyContent:'space-between',
         borderRadius: 5,
-        paddingLeft:'10%',
+        paddingLeft:'5%',
        
     },
     logoutButtonText: {

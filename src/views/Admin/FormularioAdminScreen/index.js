@@ -85,6 +85,7 @@ const FormularioAdminScreen = () => {
                 showMessage({
                     message: "Todos los campos son obligatorios",
                     type: "danger",
+                    duration: 2000
                 });
                 return;
             }
@@ -116,14 +117,12 @@ const FormularioAdminScreen = () => {
                 });
             }
 
-           
             if (!productoEditado) {
                 const idProducto = generarIdProducto();
                 const producto = { idProducto, nombre, precio, categoria, descripcion, imagen: image };
                 nuevosProductos.push(producto);
             }
 
-    
             await AsyncStorage.setItem('productos', JSON.stringify(nuevosProductos));
 
             onChangeNombre('');
@@ -132,7 +131,6 @@ const FormularioAdminScreen = () => {
             onChangeDescripcion('');
             setImage(null);
 
-     
             showMessage({
                 message: "Producto guardado exitosamente",
                 type: "success",
@@ -151,7 +149,7 @@ const FormularioAdminScreen = () => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            <HeaderComponent />
+            <HeaderComponent titulo="Agregar producto" />
             <View style={styles.containerItem}>
                 <View style={styles.container}>
                     <View>
@@ -160,8 +158,15 @@ const FormularioAdminScreen = () => {
                             <Text style={{ paddingTop: 10, fontSize: 15, color: '#9b9b9b' }}>Carga tu imagen</Text>
                         </TouchableOpacity>
                     </View>
-                    {image && <Image source={{ uri: image }} style={styles.image} />}
-                    {image && <Text style={{ color: 'red' }}>{image.uri}</Text>}
+                    {image ? (
+                        <>
+                            <Text style={{ marginTop: 5 }}>Imagen seleccionada:</Text>
+                            <Image source={{ uri: image }} style={styles.image} />
+
+                        </>
+                    ) : (
+                        <Text style={{marginTop:5}}>No hay imagen seleccionada</Text>
+                    )}
                     <TextInput
                         style={styles.input}
                         onChangeText={onChangeNombre}
@@ -176,8 +181,8 @@ const FormularioAdminScreen = () => {
                     />
 
                     <TextInput
-                        multiline
-                        numberOfLines={4}
+             
+                       
                         maxLength={40}
                         style={[styles.input, { height: 100 }]}
                         onChangeText={onChangeDescripcion}
@@ -191,7 +196,7 @@ const FormularioAdminScreen = () => {
                         setOpen={setOpen}
                         setValue={onChangeCategoria}
                         setItems={setItems}
-                        containerStyle={{ height: 40, marginTop: 10 }}
+                        containerStyle={{ height: 40, marginTop: 10, marginBottom:20}}
                         style={{ backgroundColor: '#e0e3f0', borderColor: '#e0e3f0' }}
                         itemStyle={{
                             justifyContent: 'flex-start',
@@ -214,7 +219,7 @@ const FormularioAdminScreen = () => {
                     </Button>
                 </View>
             </View>
-            <FlashMessage position="top" />
+          
         </SafeAreaView>
     );
 };
@@ -222,6 +227,7 @@ const FormularioAdminScreen = () => {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
+        paddingTop:20
     },
     containerItem: {
         flex: 1,
@@ -255,6 +261,11 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontSize: 17,
     },
+    image: {
+        width: 90,
+        height: 90,
+        borderRadius: 5
+    }
 });
 
 export default FormularioAdminScreen;
