@@ -11,10 +11,10 @@ const LoginScreen = () => {
     const pass1="laura123"
     const email2="pablo@correo.com"
     const pass2="pablo123"
-    const emailAdmin ="admin@strappberry.com"
+    const emailAdmin ="admin@rappsberry.com"
     const passAdmin="admin"
-    const [email, onChangeEmail] = useState('');
-    const [password, onChangePassword] = useState('');
+    const [email, onChangeEmail] = useState(email2);
+    const [password, onChangePassword] = useState(pass2);
 
     const navigation = useNavigation();
 
@@ -27,7 +27,7 @@ const LoginScreen = () => {
 
     const handleLogin = async () => {
         try {
-            if (email === 'admin@strappberry.com' && password === 'admin') {
+            if (email === 'admin@rappsberry.com' && password === 'admin') {
                 navigation.navigate("ListItemAdmin");
                 return;
             }
@@ -66,7 +66,7 @@ const LoginScreen = () => {
         <ScrollView style={styles.container}
             contentContainerStyle={{ flexGrow: 1 }}>
             <View style={styles.headerContainer}>
-                <Image source={require('../../../assets/images/strappberry.png')} style={styles.logo}></Image>
+                <Image source={require('../../../assets/images/rappsberry.png')} style={styles.logo}></Image>
             </View>
             <View style={[styles.dataContainer, { height: dataContainerHeight }]}>
                 <View>
@@ -89,7 +89,7 @@ const LoginScreen = () => {
                         buttonStyle={{
                             borderRadius: 10,
                             height: 50, width: 200,
-                            backgroundColor: "#353C59",
+                            backgroundColor: "#CD256A",
                             marginRight:12
                         }}
                     >
@@ -108,7 +108,7 @@ const LoginScreen = () => {
                 <TouchableOpacity onPress={handleLoginToRegistro} ><Text style={styles.textLink}>Registrate</Text></TouchableOpacity>
                 <Text
                     style={{ color: "#c9c9c9", textAlign: "center", marginTop: 20 }}>
-                    Luis Pablo Rocha | luispablo2098@hotmail.com
+                    Luis Pablo Rocha | Image Designed by Freepik
                 </Text>
             </View>
             <FlashMessage position="top" />
@@ -126,14 +126,14 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         paddingLeft: 12,
-        backgroundColor: '#353C59',
+        backgroundColor: '#A1E887',
         alignContent: 'center',
         alignItems: 'center',
         height: 300
     },
     logo: {
         padding: 10,
-        width: 260,
+        width: 310,
         height: 65,
         marginTop: 100
     },
@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-        backgroundColor: "#e0e3f0",
-        borderColor: '#e0e3f0',
+        backgroundColor: "#EAD6DF",
+        borderColor: '#EAD6DF',
         borderRadius: 10,
         fontSize: 15
     },
@@ -174,6 +174,6 @@ const styles = StyleSheet.create({
         position: "relative",
         textAlign: 'center',
         top: 2,
-        color: "#353C59"
+        color: "#CD256A"
     }
 })

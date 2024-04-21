@@ -71,7 +71,7 @@ const RegistroScreen = () => {
         <ScrollView style={styles.container}
             contentContainerStyle={{ flexGrow: 1 }}>
             <View style={styles.headerContainer}>
-                <Image source={require('../../../assets/images/strappberry.png')} style={styles.logo}></Image>
+                <Image source={require('../../../assets/images/rappsberry.png')} style={styles.logo}></Image>
             </View>
             <View style={[styles.dataContainer, { height: dataContainerHeight }]}>
                 <View>
@@ -108,7 +108,7 @@ const RegistroScreen = () => {
                         buttonStyle={{
                             borderRadius: 10,
                             height: 50, width: 200,
-                            backgroundColor: "#353C59",
+                            backgroundColor: "#CD256A",
                             marginRight:12
                         }}
                     >
@@ -127,7 +127,7 @@ const RegistroScreen = () => {
                 <TouchableOpacity onPress={handleRegistroToLogin} ><Text style={styles.textLink}>Inicia sesión</Text></TouchableOpacity>
                 <Text
                     style={{ color: "#c9c9c9", textAlign: "center", marginTop: 20 }}>
-                    Luis Pablo Rocha | luispablo2098@hotmail.com
+                    Luis Pablo Rocha | Image Designed by Freepik
                 </Text>
             </View>
         </ScrollView>
@@ -144,14 +144,14 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         paddingLeft: 12,
-        backgroundColor: '#353C59',
+        backgroundColor: '#A1E887',
         alignContent: 'center',
         alignItems: 'center',
         height: 250
     },
     logo: {
         padding: 10,
-        width: 260,
+        width: 310,
         height: 65,
         marginTop: 80
     },
@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-        backgroundColor: "#e0e3f0",
-        borderColor: '#e0e3f0',
+        backgroundColor: "#EAD6DF",
+        borderColor: '#EAD6DF',
         borderRadius: 10,
         fontSize: 15
     },
@@ -192,6 +192,6 @@ const styles = StyleSheet.create({
         position: "relative",
         textAlign: 'center',
         top: 2,
-        color: "#353C59"
+        color: "#CD256A"
     }
 })

@@ -103,7 +103,7 @@ const ProductoScreen = () => {
     return (
         <SafeAreaView style={styles.container}
             contentContainerStyle={{ flexGrow: 1 }}>
-            <HeaderComponent titulo="Producto" color="#e0e3f0"></HeaderComponent>
+            <HeaderComponent titulo="Producto" color="#EAD6DF"></HeaderComponent>
             {producto &&
                 <>
                     <View style={styles.imageContainer}>
@@ -120,7 +120,7 @@ const ProductoScreen = () => {
                                 buttonStyle={{
                                     borderRadius: 10,
                                     height: 50,
-                                    backgroundColor: "#353C59",
+                                    backgroundColor: "#CD256A",
                                 }}
                             >
                                 <Text style={styles.buttonText}>Agregar al carrito
@@ -145,15 +145,15 @@ const styles = StyleSheet.create({
         paddingTop:30
     },
     imageContainer: {
-        backgroundColor: '#e0e3f0',
+        backgroundColor: '#EAD6DF',
         alignContent: 'center',
         alignItems: 'center',
         height: 400
     },
     imageProducto: {
         width: 300,
-        height: 205,
-        marginTop: 100
+        height: 300,
+        marginTop: 20
     },
     infoContainer: {
         padding: 12,

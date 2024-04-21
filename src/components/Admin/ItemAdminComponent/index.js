@@ -60,7 +60,7 @@ const ItemAdminComponent = ({ producto, onDelete }) => {
                     <View style={styles.modalContent}>
                         <Text style={styles.modalTitle}>¿Estás seguro que deseas eliminar este producto?</Text>
                         <View style={styles.modalButtons}>
-                            <TouchableOpacity onPress={() => setModalVisible(false)} style={[styles.button, { backgroundColor: "#353C59" }]}>
+                            <TouchableOpacity onPress={() => setModalVisible(false)} style={[styles.button, { backgroundColor: "#EAD6DF" }]}>
                                 <Text style={styles.buttonText}>Cancelar</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={handleDelete} style={[styles.button, { backgroundColor: "#d15253" }]}>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     },
     Card: {
         flex: 1,
-        backgroundColor: '#e0e3f0',
+        backgroundColor: '#EAD6DF',
         padding: 10,
         borderRadius: 6,
         shadowColor: "#000",

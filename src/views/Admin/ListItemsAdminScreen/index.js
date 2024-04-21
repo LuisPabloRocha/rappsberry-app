@@ -92,7 +92,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('todos')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Todo
                     </Text>
@@ -100,7 +100,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('electronica')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Electrónica
                     </Text>
@@ -108,7 +108,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('moda')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' , marginRight:10}}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A' , marginRight:10}}
 
                 >
                     <Text style={styles.textBtn}>Moda
@@ -117,7 +117,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('ocio')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' , marginRight:10}}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A' , marginRight:10}}
                 >
                     <Text style={styles.textBtn}>Juguetes
                     </Text>
@@ -125,7 +125,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('hogar')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Hogar
                     </Text>
@@ -133,7 +133,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('alimentos')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Alimentos
                     </Text>
@@ -141,7 +141,7 @@ const ListItemAdminScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('limpieza')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Limpieza
                     </Text>
@@ -218,12 +218,12 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         position: 'absolute',
-        bottom: '1%',
+        bottom: '5%',
         right: 20,
         width: 60,
         height: 60,
         borderRadius: 30,
-        backgroundColor: '#353C59',
+        backgroundColor: '#CD256A',
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 3,

@@ -53,7 +53,7 @@ const HomeScreen = () => {
             <View>
                 <View style={styles.containerIconCart}>
                     <TouchableOpacity onPress={handlegoToCart}>
-                        <Ionicons name="cart" size={30} color="#353c59" />
+                        <Ionicons name="cart" size={30} color="#CD256A" />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.container}>
@@ -69,7 +69,7 @@ const HomeScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('todos')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Todo
                     </Text>
@@ -77,7 +77,7 @@ const HomeScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('electronica')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' , marginRight:10}}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A' , marginRight:10}}
                 >
                     <Text style={styles.textBtn}>Electrónica
                     </Text>
@@ -85,7 +85,7 @@ const HomeScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('moda')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A', marginRight:10 }}
 
                 >
                     <Text style={styles.textBtn}>Moda
@@ -94,7 +94,7 @@ const HomeScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('ocio')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Juguetes
                     </Text>
@@ -102,7 +102,7 @@ const HomeScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('hogar')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59' , marginRight:10}}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A' , marginRight:10}}
                 >
                     <Text style={styles.textBtn}>Hogar
                     </Text>
@@ -110,7 +110,7 @@ const HomeScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('alimentos')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Alimentos
                     </Text>
@@ -118,7 +118,7 @@ const HomeScreen = () => {
                 <Button
                     onPress={() => handleCategoryPress('limpieza')}
                     style={styles.buttonCategory}
-                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#353c59', marginRight:10 }}
+                    buttonStyle={{ borderRadius: 10, height: 45, width: 150, backgroundColor: '#CD256A', marginRight:10 }}
                 >
                     <Text style={styles.textBtn}>Limpieza
                     </Text>

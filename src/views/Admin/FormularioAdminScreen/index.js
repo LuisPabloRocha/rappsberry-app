@@ -197,7 +197,7 @@ const FormularioAdminScreen = () => {
                         setValue={onChangeCategoria}
                         setItems={setItems}
                         containerStyle={{ height: 40, marginTop: 10, marginBottom:20}}
-                        style={{ backgroundColor: '#e0e3f0', borderColor: '#e0e3f0' }}
+                        style={{ backgroundColor: '#EAD6DF', borderColor: '#EAD6DF' }}
                         itemStyle={{
                             justifyContent: 'flex-start',
 
@@ -211,7 +211,7 @@ const FormularioAdminScreen = () => {
                         buttonStyle={{
                             borderRadius: 10,
                             height: 50,
-                            backgroundColor: "#353C59",
+                            backgroundColor: "#CD256A",
                         }}
                     >
                         <Text style={styles.buttonText}>Guardar Producto
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
         padding: 15
     },
     inputselectImage: {
-        backgroundColor: "#e0e3f0",
+        backgroundColor: "#EAD6DF",
         height: 150,
         borderRadius: 10,
         alignContent: 'center',
@@ -246,8 +246,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderWidth: 1,
         padding: 10,
-        backgroundColor: "#e0e3f0",
-        borderColor: '#e0e3f0',
+        backgroundColor: "#EAD6DF",
+        borderColor: '#EAD6DF',
         borderRadius: 10,
         fontSize: 15
     },
